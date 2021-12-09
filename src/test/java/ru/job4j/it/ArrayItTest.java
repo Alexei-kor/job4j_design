@@ -3,6 +3,8 @@ package ru.job4j.it;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
@@ -25,6 +27,12 @@ public class ArrayItTest {
         Assert.assertEquals((long) it.next(), 1L);
         Assert.assertEquals((long) it.next(), 2L);
         Assert.assertEquals((long) it.next(), 3L);
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void whenException() {
+        ArrayIt it = new ArrayIt(new int[]{});
+        it.next();
     }
 
 }
