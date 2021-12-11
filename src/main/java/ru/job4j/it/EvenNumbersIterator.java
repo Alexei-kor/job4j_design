@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
+/**
+ * @author Alexei
+ */
 public class EvenNumbersIterator implements Iterator<Integer> {
     private int[] data;
     private int index;
