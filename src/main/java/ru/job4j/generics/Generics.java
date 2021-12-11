@@ -19,14 +19,21 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-        //gen.printBoundedWildCard(first);
+        /**
+         * данная строка ошибочна и закомментирована
+         * gen.printBoundedWildCard(first);
+         */
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-        //gen.printLowerBoundedWildCard(third);
+        /**
+         * данная строка ошибочна и закомментирована
+         * gen.printLowerBoundedWildCard(third);
+         */
+
     }
 
     public void printObject(List<?> list) {
