@@ -1,6 +1,6 @@
 package ru.job4j.linklist;
 
-public class SimpleStack <T> {
+public class SimpleStack<T> {
 
     private ForwardLinked<T> linked = new ForwardLinked<T>();
 
