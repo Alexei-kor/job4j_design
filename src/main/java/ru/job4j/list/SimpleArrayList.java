@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SimpleArrayList<T> implements List<T> {
 
-    private Object[] container;
+    private T[] container;
 
     private int size;
 
@@ -46,7 +46,7 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public T get(int index) {
         Objects.checkIndex(index, size);
-        return (T) container[index];
+        return container[index];
     }
 
     @Override
