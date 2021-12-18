@@ -1,4 +1,4 @@
-package ru.job4j.LinkList;
+package ru.job4j.linklist;
 
 public interface List<E> extends Iterable<E> {
     void add(E value);

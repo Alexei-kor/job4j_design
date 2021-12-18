@@ -1,4 +1,4 @@
-package ru.job4j.LinkList;
+package ru.job4j.linklist;
 
 import org.junit.Test;
 
