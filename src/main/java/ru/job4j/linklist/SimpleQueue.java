@@ -6,11 +6,11 @@ public class SimpleQueue<T> {
 
     public T poll() {
         T rsl = in.pop();
-        out.push(rsl);
+        out.pushEnd(rsl);
         return rsl;
     }
 
     public void push(T value) {
-        in.push(value);
+        in.pushEnd(value);
     }
 }
