@@ -12,10 +12,6 @@ public class SimpleStack<T> {
         linked.addFirst(value);
     }
 
-    public void pushEnd(T value) {
-        linked.add(value);
-    }
-
     public boolean emptyStack() {
         return !linked.iterator().hasNext();
     }
