@@ -10,11 +10,10 @@ public class SimpleQueue<T> {
         if (in.emptyStack() && out.emptyStack()) {
             throw new NoSuchElementException("No such element in queue.");
         }
-        if (!out.emptyStack()) {
-            return out.pop();
-        }
-        while (!in.emptyStack()) {
-            out.push(in.pop());
+        if (out.emptyStack()) {
+            while (!in.emptyStack()) {
+                out.push(in.pop());
+            }
         }
         return out.pop();
     }
