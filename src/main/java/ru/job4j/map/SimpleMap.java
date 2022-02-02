@@ -81,16 +81,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
             private int expectedModCount = modCount;
             private int tmpCount = 0;
             private int index = 0;
-            private MapEntry<K, V> cursor = table[index];
 
             @Override
             public boolean hasNext() {
                 while (tmpCount < count
                         && index < table.length
-                        && (cursor = table[index]) == null) {
+                        && table[index] == null) {
                     index++;
                 }
-                if (cursor != null) {
+                if (table[index] != null) {
                     tmpCount++;
                 }
                 return tmpCount < count;
