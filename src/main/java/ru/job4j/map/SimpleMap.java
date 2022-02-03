@@ -2,6 +2,7 @@ package ru.job4j.map;
 
 import ru.job4j.linklist.SimpleLinkedList;
 
+import java.awt.event.KeyEvent;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -21,17 +22,18 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null) {
-            return false;
-        }
-        table[index] = new MapEntry<>(key, value);
-        count++;
-        modCount++;
         if (count > capacity * LOAD_FACTOR) {
             expand();
         }
-        return true;
+        int index = indexFor(hash(key.hashCode()));
+        boolean rsl = false;
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
+            rsl = true;
+            count++;
+            modCount++;
+        }
+        return rsl;
     }
 
     private int hash(int hashCode) {
@@ -60,16 +62,18 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        return table[index] == null ? null : table[index].value;
+        return table[index] == null ? null : Objects.equals(key, table[index].key) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
         int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null) {
+        if (table[index] != null
+                && Objects.equals(key, table[index].key)) {
             table[index] = null;
             rsl = true;
+            count--;
         }
         return rsl;
     }
@@ -79,29 +83,24 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return new Iterator<K>() {
 
             private int expectedModCount = modCount;
-            private int tmpCount = 0;
             private int index = 0;
 
             @Override
             public boolean hasNext() {
-                while (tmpCount < count
-                        && index < table.length
-                        && table[index] == null) {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                while (index < table.length
+                    && table[index] == null) {
                     index++;
                 }
-                if (table[index] != null) {
-                    tmpCount++;
-                }
-                return tmpCount < count;
+                return index < table.length && table[index] == null;
             }
 
             @Override
             public K next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return table[index++].key;
             }

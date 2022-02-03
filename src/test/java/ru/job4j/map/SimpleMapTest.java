@@ -16,7 +16,7 @@ public class SimpleMapTest {
         Assert.assertTrue(map.put("KING", 100));
         Assert.assertFalse(map.put("BLAKE", 200));
         assertThat(map.get("KING"), is(100));
-        assertThat(map.get("BLAKE"), is(100));
+        assertNull(map.get("BLAKE"));
     }
 
     @Test
