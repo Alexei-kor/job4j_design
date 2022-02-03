@@ -94,7 +94,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                     && table[index] == null) {
                     index++;
                 }
-                return index < table.length && table[index] == null;
+                return index < table.length && table[index] != null;
             }
 
             @Override
