@@ -13,8 +13,7 @@ public class LogFilter {
         try (BufferedReader buffRead = new BufferedReader(new FileReader("log.txt"))) {
             list = buffRead.lines()
                     .filter(e -> e.matches(".*\\s404\\s.*"))
-                    .collect(Collectors.toList())
-                    ;
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
