@@ -29,7 +29,7 @@ public class ResultFile {
     }
 
     public static void read() {
-        try (FileInputStream fis = new FileInputStream("input.txt")){
+        try (FileInputStream fis = new FileInputStream("input.txt")) {
             StringBuilder str = new StringBuilder();
             int read;
             while ((read = fis.read()) != -1) {
