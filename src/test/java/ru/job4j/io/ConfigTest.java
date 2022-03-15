@@ -17,7 +17,7 @@ public class ConfigTest {
         assertThat(config.value("surname"), is(Matchers.nullValue()));
     }
 
-    @Test( expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void whenWithoutPair() {
         String path = "./data/without_pair.properties";
         Config config = new Config(path);
