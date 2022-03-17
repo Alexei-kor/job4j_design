@@ -18,8 +18,22 @@ public class ConfigTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void whenWithoutPair() {
-        String path = "./data/without_pair.properties";
+    public void whenWithoutPair1() {
+        String path = "./data/without_pair1.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenWithoutPair2() {
+        String path = "./data/without_pair2.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void whenWithoutPair3() {
+        String path = "./data/without_pair3.properties";
         Config config = new Config(path);
         config.load();
     }
