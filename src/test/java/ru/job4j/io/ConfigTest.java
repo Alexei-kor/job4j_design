@@ -10,7 +10,7 @@ public class ConfigTest {
 
     @Test
     public void whenPairWithoutComment() {
-        String path = "./data/pair_without_comment.properties";
+        String path = "./Data/pair_without_comment.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name"), is("Petr Arsentev"));
@@ -19,28 +19,28 @@ public class ConfigTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void whenWithoutPair1() {
-        String path = "./data/without_pair1.properties";
+        String path = "./Data/without_pair1.properties";
         Config config = new Config(path);
         config.load();
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void whenWithoutPair2() {
-        String path = "./data/without_pair2.properties";
+        String path = "./Data/without_pair2.properties";
         Config config = new Config(path);
         config.load();
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void whenWithoutPair3() {
-        String path = "./data/without_pair3.properties";
+        String path = "./Data/without_pair3.properties";
         Config config = new Config(path);
         config.load();
     }
 
     @Test
     public void whenPairWithCommentAndEmptyString() {
-        String path = "./data/pair_with_cooment_and_emptyString.properties";
+        String path = "./Data/pair_with_cooment_and_emptyString.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name"), is("Petr Arsentev"));
