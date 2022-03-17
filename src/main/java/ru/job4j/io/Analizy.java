@@ -28,7 +28,7 @@ public class Analizy {
 
     public static void main(String[] args) {
         try (PrintWriter out = new PrintWriter(new FileOutputStream("log.csv"))) {
-            out.println("200 10:56:01");
+            out.println("200 10:56:02");
             out.println("500 10:57:01");
             out.println("400 10:58:01");
             out.println("200 10:59:01");
