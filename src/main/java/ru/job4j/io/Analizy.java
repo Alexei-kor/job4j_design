@@ -10,9 +10,9 @@ public class Analizy {
             String dateBegin = "", dateEnd = "";
             while (bufferedReader.ready()) {
                 String[] tmp = bufferedReader.readLine().split(" ");
-                if (dateBegin.isEmpty() && (tmp[0].equals("400") || tmp[0].equals("500"))) {
+                if (dateBegin.isEmpty() && ("400".equals(tmp[0]) || "500".equals(tmp[0]))) {
                     dateBegin = tmp[1];
-                } else if (!dateBegin.isEmpty() && (tmp[0].equals("200") || tmp[0].equals("300"))) {
+                } else if (!dateBegin.isEmpty() && ("200".equals(tmp[0]) || "300".equals(tmp[0]))) {
                     dateEnd = tmp[1];
                 }
                 if (!dateBegin.isEmpty() && !dateEnd.isEmpty()) {
