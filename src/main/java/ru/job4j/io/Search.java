@@ -10,8 +10,23 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".java")).forEach(System.out::println);
+
+        String head = args[0];
+        if (head.isEmpty()) {
+            throw new IllegalArgumentException("Empty head catalog");
+        }
+
+        String ext = args[1];
+        if (ext.isEmpty()) {
+            throw new IllegalArgumentException("Empty extension");
+        }
+        if (!ext.startsWith(".")) {
+            ext = "." + ext;
+        }
+        final String extF = ext;
+
+        Path start = Paths.get(head);
+        search(start, p -> p.toFile().getName().endsWith(extF)).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
