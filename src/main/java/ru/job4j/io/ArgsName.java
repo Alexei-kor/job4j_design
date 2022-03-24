@@ -10,7 +10,7 @@ public class ArgsName {
 
     public String get(String key) {
         String rsl = values.get(key);
-        if (rsl==null) {
+        if (rsl == null) {
             throw new IllegalArgumentException(String.format("Not found key %s", key));
         }
         return rsl;
