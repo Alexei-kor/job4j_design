@@ -32,8 +32,8 @@ public class ArgsName {
         }
         if (!tmpArr[0].startsWith("-")) {
             throw new IllegalArgumentException(
-                    String.format("The symbol '-' for the key '%s' is missing", tmpArr[0]))
-                    ;
+                    String.format("The symbol '-' for the key '%s' is missing", tmpArr[0])
+            );
         }
     }
 
