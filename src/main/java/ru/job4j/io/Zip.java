@@ -1,10 +1,8 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
@@ -24,17 +22,6 @@ public class Zip {
         }
     }
 
-    public void packSingleFile(File source, File target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            zip.putNextEntry(new ZipEntry(source.getPath()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source))) {
-                zip.write(out.readAllBytes());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private List<File> getSources(String source, String exclude) throws IOException {
         return Search.search(
                 Paths.get(source),
@@ -45,6 +32,7 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
+        checkParams(args);
         ArgsName argsName = ArgsName.of(args);
         String directory = argsName.get("d");
         String exclude = argsName.get("e");
@@ -52,6 +40,12 @@ public class Zip {
         checkDirectory(directory);
         Zip zip = new Zip();
         zip.packFiles(zip.getSources(directory, exclude), Paths.get(output).toFile());
+    }
+
+    private static void checkParams(String[] args) {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Must be 3 params: '-d', '-e', '-o'");
+        }
     }
 
     private static void checkDirectory(String directory) {
