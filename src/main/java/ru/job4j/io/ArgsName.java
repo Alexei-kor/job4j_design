@@ -18,9 +18,9 @@ public class ArgsName {
     private void parse(String[] args) {
         for (int i = 0; i < args.length; i++) {
             String tmp = args[i];
-            tmp = tmp.substring(1);
             String[] tmpArr = tmp.split("=", 2);
             checkParams(tmpArr);
+            tmpArr[0] = tmpArr[0].substring(1);
             values.put(tmpArr[0], tmpArr[1]);
         }
 
@@ -29,6 +29,11 @@ public class ArgsName {
     private void checkParams(String[] tmpArr) {
         if (tmpArr.length != 2 || tmpArr[1].isEmpty()) {
             throw new IllegalArgumentException(String.format("Param '%s' is invalid", tmpArr[0]));
+        }
+        if (!tmpArr[0].startsWith("-")) {
+            throw new IllegalArgumentException(
+                    String.format("The symbol '-' for the key '%s' is missing", tmpArr[0]))
+                    ;
         }
     }
 
