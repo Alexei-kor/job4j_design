@@ -35,11 +35,6 @@ public class Search {
         if (!path.toFile().isDirectory()) {
             throw new IllegalArgumentException(String.format("'%s' is't catalog", head));
         }
-
-        String ext = args[1];
-        if (ext.isEmpty()) {
-            throw new IllegalArgumentException("Empty extension");
-        }
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
