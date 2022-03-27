@@ -28,10 +28,10 @@ public class ConsoleChat {
         String request = console.nextLine();
         addLog(request);
         boolean shutUp = false;
-        while (!request.equals(ConsoleChat.OUT)) {
-            if (request.equals(ConsoleChat.STOP)) {
+        while (!ConsoleChat.OUT.equals(request)) {
+            if (ConsoleChat.STOP.equals(request)) {
                 shutUp = true;
-            } else if (request.equals(ConsoleChat.CONTINUE)) {
+            } else if (ConsoleChat.CONTINUE.equals(request)) {
                 shutUp = false;
             }
             if (!shutUp) {
