@@ -2,9 +2,6 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +10,15 @@ import java.util.stream.Collectors;
 
 public class CSVReader {
     public static void main(String[] args) throws IOException {
+        checkParams(args);
         ArgsName argsName = ArgsName.of(args);
         handle(argsName);
+    }
+
+    private static void checkParams(String[] args) {
+        if (args.length != 4) {
+            throw new IllegalArgumentException("Must be 4 params: '-path', '-delimiter', '-out', '-filter'.");
+        }
     }
 
     public static void handle(ArgsName argsName) throws IOException {
