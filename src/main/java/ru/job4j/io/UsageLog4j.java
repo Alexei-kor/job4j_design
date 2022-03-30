@@ -22,5 +22,11 @@ public class UsageLog4j {
         short sh = 28000;
         long l = 3445454534535345934L;
         LOG.debug("User info int: {}, float: {}, double: {}, char: {}, boolean: {}, byte: {}, short: {}, long: {}", i, f, d, c, b, by, sh, l);
+
+        try {
+            throw new Exception("Error!!!");
+        } catch (Exception e) {
+            LOG.error("This is error", e);
+        }
     }
 }
