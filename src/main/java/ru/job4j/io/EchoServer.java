@@ -17,12 +17,8 @@ public class EchoServer {
                     outputStream.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String str = bufferedReader.readLine();
                     System.out.println(str);
-                    if (str.contains("msg=Hello")) {
-                        outputStream.write("Hello".getBytes());
-                    } else if (str.contains("msg=Exit")) {
+                    if (str.contains("msg=Bye")) {
                         server.close();
-                    } else {
-                        outputStream.write("What".getBytes());
                     }
                     outputStream.flush();
                 }
