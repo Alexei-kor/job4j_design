@@ -12,7 +12,7 @@ import java.util.Random;
 public class AutoTestSerial implements Serializable {
 
     private static final long serialVersionUID = new Random(5454545121231L).nextLong();
-    private String Model;
+    private String model;
     private int power;
     private String color;
     private int count;
@@ -20,7 +20,7 @@ public class AutoTestSerial implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(AutoTestSerial.class.getName());
 
     public AutoTestSerial(String model, int power, String color, int count, int countDoors) {
-        Model = model;
+        this.model = model;
         this.power = power;
         this.color = color;
         this.count = count;
@@ -28,7 +28,7 @@ public class AutoTestSerial implements Serializable {
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public int getPower() {
@@ -49,21 +49,25 @@ public class AutoTestSerial implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AutoTestSerial that = (AutoTestSerial) o;
-        return power == that.power && count == that.count && Objects.equals(Model, that.Model) && Objects.equals(color, that.color);
+        return power == that.power && count == that.count && Objects.equals(model, that.model) && Objects.equals(color, that.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Model, power, color, count);
+        return Objects.hash(model, power, color, count);
     }
 
     @Override
     public String toString() {
         return "AutoTestSerial{"
-                + "Model='" + Model + '\''
+                + "Model='" + model + '\''
                 + ", power=" + power
                 + ", color='" + color + '\''
                 + ", count=" + count
