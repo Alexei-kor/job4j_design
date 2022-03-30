@@ -20,7 +20,7 @@ public class UsageLog4j {
         boolean b = true;
         byte by = 34;
         short sh = 28000;
-        long l = 3445454534535345934l;
+        long l = 3445454534535345934L;
         LOG.debug("User info int: {}, float: {}, double: {}, char: {}, boolean: {}, byte: {}, short: {}, long: {}", i, f, d, c, b, by, sh, l);
     }
 }
