@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoTestSerial model="Toyota" power="500" color="red" count="10">
+    <properties>
+        <property>super</property>
+        <property>puper</property>
+    </properties>
+    <owner>
+        <fio>Иванов Иван Иванович</fio>
+        <age>50</age>
+    </owner>
+</AutoTestSerial>
