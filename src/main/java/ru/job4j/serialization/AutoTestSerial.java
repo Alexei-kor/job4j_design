@@ -1,5 +1,7 @@
-package ru.job4j.io;
+package ru.job4j.serialization;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,14 +18,16 @@ public class AutoTestSerial implements Serializable {
     private int power;
     private String color;
     private int count;
+    private String[] properties;
     transient private int countDoors;
     private static final Logger LOG = LoggerFactory.getLogger(AutoTestSerial.class.getName());
 
-    public AutoTestSerial(String model, int power, String color, int count, int countDoors) {
+    public AutoTestSerial(String model, int power, String color, int count, String[] properties, int countDoors) {
         this.model = model;
         this.power = power;
         this.color = color;
         this.count = count;
+        this.properties = properties;
         this.countDoors = countDoors;
     }
 
@@ -56,12 +60,16 @@ public class AutoTestSerial implements Serializable {
             return false;
         }
         AutoTestSerial that = (AutoTestSerial) o;
-        return power == that.power && count == that.count && Objects.equals(model, that.model) && Objects.equals(color, that.color);
+        return power == that.power
+                && count == that.count
+                && Objects.equals(model, that.model)
+                && Objects.equals(properties, that.properties)
+                && Objects.equals(color, that.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, power, color, count);
+        return Objects.hash(model, power, color, count, properties);
     }
 
     @Override
@@ -71,36 +79,18 @@ public class AutoTestSerial implements Serializable {
                 + ", power=" + power
                 + ", color='" + color + '\''
                 + ", count=" + count
+                + ", properties=" + properties
                 + ", countDoors=" + countDoors
                 + '}';
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        Path path = Paths.get("./Data/Serial/auto.json");
-
-        AutoTestSerial toyota = new AutoTestSerial("Toyota", 200, "red", 50, 4);
-        AutoTestSerial honda = new AutoTestSerial("Honda", 250, "yellow", 48, 5);
-
-        try (FileOutputStream fos = new FileOutputStream(path.toFile())) {
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(toyota);
-            oos.writeObject(honda);
-        } catch (IOException e) {
-            LOG.error("Error serializable", e);
-        }
-
-        try (FileInputStream fis = new FileInputStream(path.toFile())) {
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            AutoTestSerial toyota1 = (AutoTestSerial) ois.readObject();
-            AutoTestSerial honda1 = (AutoTestSerial) ois.readObject();
-
-            System.out.println(toyota1.equals(toyota));
-            System.out.println(honda1.equals(honda));
-
-        } catch (IOException e) {
-            LOG.error("Error deserializable", e);
-        }
-
+        AutoTestSerial toyota = new AutoTestSerial("Toyota", 200, "red", 50, new String[]{"super", "puper"}, 4);
+        final Gson gson = new GsonBuilder().create();
+        LOG.debug(gson.toJson(toyota));
+        final String toyotaStr = "{model:ToyotaLoad,power:300,color:red,count:30,properties:[Nosuper,Nopuper]}";
+        AutoTestSerial toyotaLoad = gson.fromJson(toyotaStr, AutoTestSerial.class);
+        System.out.println(toyotaLoad);
     }
 
 }
