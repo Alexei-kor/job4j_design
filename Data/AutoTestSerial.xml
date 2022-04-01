@@ -4,6 +4,7 @@
         <property>super</property>
         <property>puper</property>
     </properties>
+    <isNew>true</isNew>
     <owner>
         <fio>Иванов Иван Иванович</fio>
         <age>50</age>
