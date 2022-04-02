@@ -112,13 +112,13 @@ public class AutoTestSerial {
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
         String xml = "";
-        try(StringWriter writer = new StringWriter()) {
+        try (StringWriter writer = new StringWriter()) {
             marshaller.marshal(auto, writer);
             xml = writer.getBuffer().toString();
             LOG.debug(xml);
         }
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        try(StringReader reader = new StringReader(xml)) {
+        try (StringReader reader = new StringReader(xml)) {
             AutoTestSerial autoLoad = (AutoTestSerial) unmarshaller.unmarshal(reader);
             LOG.debug(String.format("Before serial: %s", auto.toString()));
             LOG.debug(String.format("After serial: %s", autoLoad.toString()));
