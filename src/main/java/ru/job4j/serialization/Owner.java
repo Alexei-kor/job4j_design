@@ -1,5 +1,8 @@
 package ru.job4j.serialization;
 
+import org.json.JSONObject;
+import org.json.JSONPropertyIgnore;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,6 +23,11 @@ public class Owner {
     public Owner(String name, AutoTestSerial auto) {
         this.name = name;
         this.auto = auto;
+    }
+
+    @JSONPropertyIgnore
+    public AutoTestSerial getAuto() {
+        return auto;
     }
 
     @Override

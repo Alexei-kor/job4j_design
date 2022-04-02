@@ -2,9 +2,7 @@ package ru.job4j.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
-import org.json.JSONPropertyIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,7 +128,7 @@ public class AutoTestSerial {
                 4);
         Owner ownerA = new Owner("Иванов Иван", toyota);
         toyota.setOwner(ownerA);
-        System.out.println(new JSONObject(ownerA));
+        System.out.println(new JSONObject(toyota));
     }
 
     public static void serialJSON(AutoTestSerial auto) {
@@ -168,10 +166,7 @@ public class AutoTestSerial {
         jsonObject.put("properties", auto.getProperties());
         jsonObject.put("countDoors", auto.getCountDoors());
         jsonObject.put("owner", auto.getOwner());
-
         System.out.println(jsonObject.toString());
-
-
     }
 }
 
