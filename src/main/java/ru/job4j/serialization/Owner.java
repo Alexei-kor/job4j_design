@@ -30,6 +30,10 @@ public class Owner {
         return auto;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Owner{"

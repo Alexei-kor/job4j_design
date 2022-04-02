@@ -97,13 +97,14 @@ public class AutoTestSerial {
         return power == that.power
                 && count == that.count
                 && Objects.equals(model, that.model)
+                && Objects.equals(owner, that.owner)
                 && Arrays.equals(properties, that.properties)
                 && Objects.equals(color, that.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(model, power, color, count, properties);
+        return Objects.hash(model, power, color, count, properties, owner);
     }
 
     @Override
@@ -112,6 +113,7 @@ public class AutoTestSerial {
                 + "Model='" + model + '\''
                 + ", power=" + power
                 + ", color='" + color + '\''
+                + ", owner='" + owner.getName() + '\''
                 + ", count=" + count
                 + ", properties=" + Arrays.toString(properties)
                 + ", countDoors=" + countDoors
@@ -128,7 +130,12 @@ public class AutoTestSerial {
                 4);
         Owner ownerA = new Owner("Иванов Иван", toyota);
         toyota.setOwner(ownerA);
-        System.out.println(new JSONObject(toyota));
+        System.out.println(toyota);
+        JSONObject jsonObject = new JSONObject(toyota);
+        System.out.println(jsonObject.toString());
+        JSONObject jsonObjectFromString = new JSONObject(jsonObject.toString());
+        System.out.println(jsonObjectFromString.toString());
+
     }
 
     public static void serialJSON(AutoTestSerial auto) {
