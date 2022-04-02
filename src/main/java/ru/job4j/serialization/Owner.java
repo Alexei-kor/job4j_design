@@ -32,8 +32,8 @@ public class Owner {
 
     @Override
     public String toString() {
-        return "Owner{" +
-                "name='" + name + '\''
+        return "Owner{"
+                + "name='" + name + '\''
                 + "auto='" + auto + '\''
                 + '}';
     }
