@@ -2,6 +2,9 @@ package ru.job4j.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
+import org.json.JSONPropertyIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,14 +46,44 @@ public class AutoTestSerial {
 
     public AutoTestSerial(String model, int power,
                           String color, int count,
-                          String[] properties, int countDoors,
-                          Owner owner) {
+                          String[] properties, int countDoors) {
         this.model = model;
         this.power = power;
         this.color = color;
         this.count = count;
         this.properties = properties;
         this.countDoors = countDoors;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public String[] getProperties() {
+        return properties;
+    }
+
+    public int getCountDoors() {
+        return countDoors;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
@@ -94,10 +127,10 @@ public class AutoTestSerial {
                 "red",
                 50,
                 new String[]{"Super", "Puper"},
-                4,
-                new Owner("Иванов Иван"));
-        serialJSON(toyota);
-        serialXml(toyota);
+                4);
+        Owner ownerA = new Owner("Иванов Иван", toyota);
+        toyota.setOwner(ownerA);
+        System.out.println(new JSONObject(ownerA));
     }
 
     public static void serialJSON(AutoTestSerial auto) {
@@ -124,6 +157,21 @@ public class AutoTestSerial {
             LOG.debug(String.format("After serial: %s", autoLoad.toString()));
             LOG.debug(String.format("Objects equal: %b", autoLoad.equals(auto)));
         }
+    }
+
+    public static void serialJSONObject(AutoTestSerial auto) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("model", auto.getModel());
+        jsonObject.put("power", auto.getPower());
+        jsonObject.put("color", auto.getColor());
+        jsonObject.put("count", auto.getCount());
+        jsonObject.put("properties", auto.getProperties());
+        jsonObject.put("countDoors", auto.getCountDoors());
+        jsonObject.put("owner", auto.getOwner());
+
+        System.out.println(jsonObject.toString());
+
+
     }
 }
 
