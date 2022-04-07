@@ -10,14 +10,13 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class Visitor extends SimpleFileVisitor<Path> {
 
-    String type;
-    String name;
-    List<Path> list = new ArrayList<>();
+    private String type;
+    private String name;
+    private List<Path> list = new ArrayList<>();
 
     public Visitor(String type, String name) {
         this.type = type;
