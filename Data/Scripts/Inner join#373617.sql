@@ -1,12 +1,19 @@
+drop table autos;
+drop table models;
+drop table owners;
+
 /* МОДЕЛИ */
 CREATE TABLE models (
 	id serial PRIMARY KEY,
 	name TEXT,
 	generation INT,
-	dataBegin text
+	dataBegin date
 );
-INSERT INTO models(name, generation, databegin) VALUES('жигули', 1, '1976');
-INSERT INTO models(name, generation, databegin) VALUES('самара', 2, '2004');
+INSERT INTO models(name, generation, databegin) VALUES('жигули', 1, '1976-1-1');
+INSERT INTO models(name, generation, databegin) VALUES('самара', 2, '2004-1-1');
+INSERT INTO models(name, generation, databegin) VALUES('мерседес', 5, '2020-1-1');
+INSERT INTO models(name, generation, databegin) VALUES('ауди', 6, '2022-1-1');
+INSERT INTO models(name, generation, databegin) VALUES('хонда', 4, '2008-1-1');
 
 /* ВЛАДЕЛЬЦЫ */
 create TABLE owners(
@@ -30,6 +37,9 @@ insert into autos(id_m, id_o) values (1, 3);
 insert into autos(id_m, id_o) values (2, 1);
 insert into autos(id_m, id_o) values (2, 2);
 insert into autos(id_m, id_o) values (2, 3);
+insert into autos(id_m, id_o) values (3, 3);
+insert into autos(id_m, id_o) values (4, 2);
+insert into autos(id_m, id_o) values (5, 1);
 
 select 
 	mod_.name as Модель, 
@@ -42,19 +52,29 @@ from
 		on autos.id_o = ow.id
 ;
 
-select distinct
-	mod_.name as Модель 	 
+select 
+	mod_.name as Модель,
+	sum(autos.id) as id
 from 
 	autos
 	join models as mod_ 
 		on autos.id_m = mod_.id
+where 
+	mod_.databegin > '2015-1-1'
+group by 	
+	mod_.name
 ;
 
-select distinct
-	ow.name as Владелец 
+select
+	ow.name as Владелец,
+	avg(autos.id) as id
 from 
 	autos
 	join owners as ow
 		on autos.id_o = ow.id
+where
+	ow.name like '%р%'
+group by
+	ow.name
 order by Владелец desc
 ;
