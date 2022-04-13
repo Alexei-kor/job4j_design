@@ -1,17 +1,12 @@
-create table users(
-	id serial primary key,
-	name varchar(150)
-);
-
 create table roles(
 	id serial primary key,
 	name varchar(150)
 );
 
-create table roleusers(
+create table users(
 	id serial primary key,
-	id_u int REFERENCES users(id),
-	id_r int REFERENCES roles(id)
+	name varchar(150),
+	id_rol int REFERENCES roles(id)
 );
 
 create table rules(
@@ -43,13 +38,6 @@ create table items(
 	id_sta int REFERENCES states(id)	
 );
 
-
-create table rolesfromitems(
-	id serial primary key,
-	id_itm int REFERENCES items(id),
-	id_rol int REFERENCES roles(id)
-);
-
 create table commentsitems(
 	id serial primary key,
 	id_itm int REFERENCES items(id),
@@ -58,11 +46,6 @@ create table commentsitems(
 
 create table attachs(
 	id serial primary key,
-	scan bytea
-);
-
-create table attachsitems(
-	id serial primary key,
-	id_itm int REFERENCES items(id),
-	id_att int REFERENCES attachs(id)
+	scan bytea,
+	id_itm int REFERENCES items(id)
 );
