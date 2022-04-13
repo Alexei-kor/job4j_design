@@ -22,13 +22,9 @@ insert into devices_people(device_id, people_id) values(1, 1), (1, 3), (2, 2), (
 
 /*Средняя цена устройств*/
 select 
-	d.name as device, 
 	avg(d.price) as avg_price 
 from 
 	devices as d 
-group by 
-	d.name		
-order by device
 ;
 
 /*Средняя цена устройств пользователей > 5000*/
