@@ -15,6 +15,10 @@ public class Config {
         this.path = path;
     }
 
+    public Map<String, String> getValues() {
+        return values;
+    }
+
     public void load() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             while (bufferedReader.ready()) {

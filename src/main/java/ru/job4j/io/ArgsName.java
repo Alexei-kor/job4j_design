@@ -8,12 +8,17 @@ import java.util.Map;
 public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
 
+    public Map<String, String> getValues() {
+        return values;
+    }
+
     public String get(String key) {
         if (!values.containsKey(key)) {
             throw new IllegalArgumentException(String.format("Not found key %s", key));
         }
         return values.get(key);
     }
+
 
     private void parse(String[] args) {
         for (int i = 0; i < args.length; i++) {
