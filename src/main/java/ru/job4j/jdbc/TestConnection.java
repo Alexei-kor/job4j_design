@@ -9,7 +9,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class testConnection {
+public class TestConnection {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         checkParams(args);
