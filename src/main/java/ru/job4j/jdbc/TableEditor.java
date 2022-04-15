@@ -3,6 +3,7 @@ package ru.job4j.jdbc;
 import ru.job4j.io.ArgsName;
 import ru.job4j.io.Config;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -33,38 +34,42 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void createTable(String tableName) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement()) {
             String sql = String.format("create table if not exists %s();", tableName);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
         }
     }
 
     public void dropTable(String tableName) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement()) {
             String sql = String.format("drop table %s;", tableName);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
         }
     }
 
     public void addColumn(String tableName, String columnName, String type) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement()) {
             String sql = String.format("alter table %s add if not exists %s %s;", tableName, columnName, type);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
         }
     }
 
     public void dropColumn(String tableName, String columnName) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement()) {
             String sql = String.format("alter table %s drop column %s;", tableName, columnName);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
         }
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
+        try (Statement statement = createStatement()) {
             String sql = String.format("alter table %s RENAME COLUMN %s TO %s;", tableName, columnName, newColumnName);
-            statement.executeUpdate(sql);
+            statement.execute(sql);
         }
+    }
+
+    private Statement createStatement() throws SQLException {
+        return connection.createStatement();
     }
 
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
@@ -94,35 +99,30 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        checkParams(args);
-        Config config = new Config(ArgsName.of(args).get("path"));
-        config.load();
         Properties properties = new Properties();
-        properties.putAll(config.getValues());
-        TableEditor tableEditor = new TableEditor(properties);
-        String tableName = "city";
-        tableEditor.createTable(tableName);
-        tableEditor.console(tableName);
-        tableEditor.addColumn(tableName, "id", "serial primary key");
-        tableEditor.console(tableName);
-        tableEditor.addColumn(tableName, "name", "varchar(255)");
-        tableEditor.console(tableName);
-        tableEditor.addColumn(tableName, "dateBegin", "date");
-        tableEditor.console(tableName);
-        tableEditor.renameColumn(tableName, "dateBegin", "date");
-        tableEditor.console(tableName);
-        tableEditor.dropColumn(tableName, "date");
-        tableEditor.console(tableName);
-        tableEditor.dropTable(tableName);
+        try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("paramsTableEditor.properties")) {
+            properties.load(in);
+            try (TableEditor tableEditor = new TableEditor(properties)) {
+                String tableName = "city";
+                tableEditor.createTable(tableName);
+                tableEditor.console(tableName);
+                tableEditor.addColumn(tableName, "id", "serial primary key");
+                tableEditor.console(tableName);
+                tableEditor.addColumn(tableName, "name", "varchar(255)");
+                tableEditor.console(tableName);
+                tableEditor.addColumn(tableName, "dateBegin", "date");
+                tableEditor.console(tableName);
+                tableEditor.renameColumn(tableName, "dateBegin", "date");
+                tableEditor.console(tableName);
+                tableEditor.dropColumn(tableName, "date");
+                tableEditor.console(tableName);
+                tableEditor.dropTable(tableName);
+            }
+
+        }
     }
 
     public void console(String tableName) throws Exception {
         System.out.println(TableEditor.getTableScheme(connection, tableName));
-    }
-
-    public static void checkParams(String[] args) {
-        if (args.length != 1) {
-            throw new IllegalArgumentException("Must be 1 parameter '-path'");
-        }
     }
 }
