@@ -21,11 +21,14 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines()
-                .forEach(e -> users.add(new User(
-                                    e.split(";")[0],
-                                    e.split(";")[1]
-                        )));
+            for (String tmp: rd.lines().toList()) {
+                String[] arr = tmp.split(";");
+                if (arr.length != 2 || arr[0].isEmpty() || arr[0].isEmpty()) {
+                    throw new IllegalArgumentException(String.format("Incorrect record in file: %s", tmp));
+                }
+                users.add(new User(arr[0], arr[1]));
+            }
+
         }
         return users;
     }
