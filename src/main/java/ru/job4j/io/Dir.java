@@ -16,7 +16,7 @@ public class Dir {
         System.out.println(String.format("size %s", file.getTotalSpace()));
         Arrays.stream(file.listFiles())
                 .filter(e -> !e.isDirectory())
-                .map(e -> String.format("Name: '%s', size: %s", e.getName(), e.length()))
+                .map(e -> String.format("Name my: '%s', size: %s", e.getName(), e.length()))
                 .forEach(System.out::println);
     }
 }
