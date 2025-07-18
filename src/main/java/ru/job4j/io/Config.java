@@ -31,7 +31,7 @@ public class Config {
                 if (list.isEmpty()
                         || list.size() < 2
                         || list.get(0).isEmpty()) {
-                    throw new IllegalArgumentException("Неверный формат файла");
+                    throw new IllegalArgumentException("Неверный этот формат файла");
                 }
                 values.put(list.get(0), list.get(1));
             }
